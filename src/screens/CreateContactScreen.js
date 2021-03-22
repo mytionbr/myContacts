@@ -41,16 +41,21 @@ const CreateContactScreen = (props) => {
            <TextInput 
                 style={styles.input} 
                 placeholder="Nome"
+                placeholderTextColor="#AAB7B8" 
                 onChangeText={(value)=> handleChangeText('name',value)}
                 />
+
+                
            <TextInput 
                 style={styles.input} 
                 placeholder="E-mail"
+                placeholderTextColor="#AAB7B8" 
                 onChangeText={(value)=> handleChangeText('email',value)}
                 />
            <TextInput 
                 style={styles.input} 
                 placeholder="Telefone"
+                placeholderTextColor="#AAB7B8" 
                 onChangeText={(value)=> handleChangeText('phone',value)}
                 />
            <Button 
@@ -72,7 +77,6 @@ const styles = StyleSheet.create({
         fontSize:24,
         marginTop:10,
         color:'#fff',
-        multiline:true,
         marginBottom: 10,
         borderBottomWidth: 1,
         borderBottomColor: "#cccccc",

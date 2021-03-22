@@ -42,7 +42,7 @@ const HomeScreen = (props) => {
                         key={contact.id}
                         bottomDivider
                         onPress={()=>Alert.alert(`Você clicou em ${contact.name}`)}
-                        >
+                         >
                    
                     <Avatar
                        title={`${(contact.name[0]+contact.name[1]).toUpperCase()}`}
@@ -53,7 +53,7 @@ const HomeScreen = (props) => {
                         <ListItem.Title style={styles.title}>{contact.name}</ListItem.Title>
                         <ListItem.Subtitle style={styles.subtitle}>{contact.phone}</ListItem.Subtitle>
                     </ListItem.Content>
-                    <ListItem.Chevron />
+                    <ListItem.Chevron size={25}/>
                </ListItem>
                )
            })
@@ -73,13 +73,13 @@ const styles = StyleSheet.create({
     avatar:{
         color:'#fff',
         backgroundColor:"#051121",
-        fontWeight:600,
+        fontWeight:'600',
         padding:10,
         fontSize:20
     },
     title:{
         fontSize:20,
-        fontWeight:400
+        fontWeight:'400'
     },
     subtitle:{
         fontSize:15

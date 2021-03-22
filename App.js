@@ -53,7 +53,11 @@ export default function App() {
   return (
       <NavigationContainer>
         <MyContacts />
-        <StatusBar translucent='bool'></StatusBar>
+        <StatusBar
+           animated={true}
+           backgroundColor="#01060D"
+           style="light"
+        ></StatusBar>
       </NavigationContainer>
       
   );
