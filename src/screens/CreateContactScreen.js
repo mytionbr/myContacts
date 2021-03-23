@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import { Alert,ScrollView,TextInput,StyleSheet, View,TouchableOpacity,Image } from 'react-native'
+import { Alert,ScrollView,TextInput,StyleSheet,TouchableOpacity } from 'react-native'
 import {Button, Icon} from 'react-native-elements'
 import { Avatar } from 'react-native-elements/dist/avatar/Avatar'
 import firebase from '../../database/firebase'

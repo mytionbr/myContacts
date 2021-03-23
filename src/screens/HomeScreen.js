@@ -87,15 +87,27 @@ const HomeScreen = (props) => {
   };
 
   return (
+    <View style={{flex:1}}>
     <ScrollView style={styles.container}>
-      <Button
-        title="Adicionar novo Contato"
+    
+      {renderList()}
+     
+    </ScrollView>
+    <View style={styles.buttonContainer}>
+    <Button
+        icon={{
+          name: "add",
+          size: 30,
+          color: "white"
+        }}
         buttonStyle={styles.btn}
         onPress={() => props.navigation.navigate("CreateContact")}
+        containerStyle={{borderRadius:100}}
+        
       />
-
-      {renderList()}
-    </ScrollView>
+     </View>
+    
+    </View>
   );
 };
 
@@ -103,9 +115,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#051121",
+    
+  },
+  buttonContainer:{
+    position: 'absolute',
+    bottom: 0,
+    right:30,
+    marginBottom:30,
   },
   btn: {
     backgroundColor: "#186EDE",
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    width: 60,
+    height: 60,
+    borderRadius: 100,
+    
   },
   avatar: {
     color: "#fff",
