@@ -1,22 +1,25 @@
 import React,{useState} from 'react'
-import { Alert } from 'react-native'
-import { ScrollView,TextInput,StyleSheet } from 'react-native'
-import {Button} from 'react-native-elements'
+import { Alert,ScrollView,TextInput,StyleSheet, View,TouchableOpacity,Image } from 'react-native'
+import {Button, Icon} from 'react-native-elements'
+import { Avatar } from 'react-native-elements/dist/avatar/Avatar'
 import firebase from '../../database/firebase'
+import * as ImagePicker from 'expo-image-picker';
 
 const CreateContactScreen = (props) => {
    
     const [state,setState] = useState({
         name: '',
         email:'',
-        phone:''
+        phone:'',
+        photo:''
     })
     //alguma coisa
 
     const handleChangeText = (name,value)=>{
         setState({...state,[name]:value})
     }
-    
+
+  
     const saveContact = async ()=>{
         if(state.name == ''){
             Alert.alert('O nome é obrigatório')
@@ -35,9 +38,61 @@ const CreateContactScreen = (props) => {
         }
     }
 
+    const renderPhote = ()=>{
+        if(state.photo !== ''){
+            console.log('osdofjdoasfjdiosajfoisdj'+state.photo)
+            return(
+                  <Avatar 
+              style={styles.photo} 
+              source={{
+                  uri: state.photo,
+                }}
+              rounded></Avatar>
+            )
+            
+        }
+        else{
+            return (
+                <Avatar 
+                style={styles.photo} 
+                title={'Foto'}
+                rounded></Avatar>
+         )   
+        }
+    }
+
+    
+
+     const handlePhoto = async () => {
+            let result = await ImagePicker.launchImageLibraryAsync({
+              mediaTypes: ImagePicker.MediaTypeOptions.Images,
+              allowsEditing: true,
+              aspect: [4, 3],
+              quality: 1,
+            });
+        
+           
+        
+            if (!result.cancelled) {
+              setState({
+                ...state,['photo']:result.uri
+              });
+            }
+          };
+    
+
     return (
         
        <ScrollView style={styles.container}>
+           
+           <TouchableOpacity style={styles.avatar}
+                onPress={()=>handlePhoto()}
+            >
+                {renderPhote()}
+                
+           </TouchableOpacity>
+          
+           
            <TextInput 
                 style={styles.input} 
                 placeholder="Nome"
@@ -60,9 +115,10 @@ const CreateContactScreen = (props) => {
                 />
            <Button 
                 buttonStyle={styles.button} 
-                title="Salvar"
+                title='Salvar'
                 onPress={()=>saveContact()}
                 />
+               
        </ScrollView>
     )
 }
@@ -85,6 +141,25 @@ const styles = StyleSheet.create({
         marginTop: 20,
         backgroundColor: '#186EDE',
         fontSize: 24,
+    },
+    avatar:{
+        marginBottom:10,
+        marginTop:10,
+        justifyContent: "center",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        padding: 10,
+        
+    },
+    photo: {
+        color: "#fff",
+        backgroundColor: "#051121",
+        fontWeight: "600",
+        padding: 0,
+        fontSize: 15,
+        width: 120,
+        height:120,
+        borderRadius:20
     }
 })
 

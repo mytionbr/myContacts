@@ -43,15 +43,21 @@ const DetailsContactScreen = (props) => {
     }
 
     const updadeContact = async ()=>{
-        const dbRef = firebase.db.collection('contacts').doc(contact.id)
-        await dbRef.set({
-            name:contact.name,
-            email:contact.email,
-            phone:contact.phone
-        })
-        setContact(initialState)
-        props.navigation.navigate('Home')
-    }
+        if(contact.name === ''){
+            Alert.alert('O nome é obrigatório')
+        }else{
+            const dbRef = firebase.db.collection('contacts').doc(contact.id)
+            await dbRef.set({
+                name:contact.name,
+                email:contact.email,
+                phone:contact.phone
+            })
+            setContact(initialState)
+            props.navigation.navigate('Home')
+        }
+        }
+        
+       
 
     const deleteContact = async ()=>{
         const dbRef = firebase.db.collection('contacts')
