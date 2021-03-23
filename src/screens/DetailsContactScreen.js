@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import { ScrollView, View, StyleSheet, TextInput,ActivityIndicator,Button} from 'react-native'
+import { ScrollView, View, StyleSheet, TextInput,ActivityIndicator,Button,Alert} from 'react-native'
 import firebase from '../../database/firebase'
 
 const DetailsContactScreen = (props) => {
@@ -53,6 +53,21 @@ const DetailsContactScreen = (props) => {
         props.navigation.navigate('Home')
     }
 
+    const deleteContact = async ()=>{
+        const dbRef = firebase.db.collection('contacts')
+                        .doc(props.route.params.contactId)
+        await dbRef.delete()
+        props.navigation.navigate('Home')
+    }
+
+    const messageConfirmAlert = ()=>{
+        Alert.alert('Remover contato','Você está certo disso?',
+        [
+            {text:'Sim', onPress: ()=>deleteContact()},
+            {text:'Não', onPress: ()=>console.log(false)}
+        ])
+    }
+
     return (
         <ScrollView style={styles.container}>
             <TextInput 
@@ -76,7 +91,7 @@ const DetailsContactScreen = (props) => {
               <Button color={styles.btnUpdate.color} title="Atualizar" onPress={() => updadeContact()} />
             </View>
             <View style={styles.btnContainer}>
-              <Button color={styles.btnDelete.color} title="Deletar" onPress={() => updateUser()} />
+              <Button color={styles.btnDelete.color} title="Deletar" onPress={() => messageConfirmAlert()} />
             </View>
         </View>
         
