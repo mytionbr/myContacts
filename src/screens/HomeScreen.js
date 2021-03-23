@@ -11,17 +11,42 @@ const HomeScreen = (props) => {
     firebase.db.collection("contacts").onSnapshot((querySnapshot) => {
       const constacts = [];
       querySnapshot.docs.forEach((doc) => {
-        const { name, email, phone } = doc.data();
+        const { name, email, phone,photo } = doc.data();
         constacts.push({
           id: doc.id,
           name: name,
           email: email,
           phone: phone,
+          photo: photo
         });
       });
       setState(constacts);
     });
   }, []);
+  
+  const handleAvartar = (element) =>{
+    if(element.photo !== ''){
+      
+      return(
+            <Avatar 
+        source={{
+            uri: element.photo,
+          }}
+        rounded></Avatar>
+      )
+      
+  }
+  else{
+      return (
+        <Avatar
+        title={`${element.name[0].toUpperCase()}`}
+        titleStyle={styles.avatar}
+        rounded
+      />
+   )   
+  }
+}
+
 
   const renderList = () => {
     if (contacts.length !== 0) {
@@ -37,11 +62,8 @@ const HomeScreen = (props) => {
               })
             }
           >
-            <Avatar
-              title={`${contact.name[0].toUpperCase()}`}
-              titleStyle={styles.avatar}
-              rounded
-            />
+            {handleAvartar(contact)}
+          
             <ListItem.Content>
               <ListItem.Title style={styles.title}>
                 {contact.name}
@@ -111,6 +133,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     padding: 10,
+  },
+  avatarContainer:{
+    width:200
   }
 });
 

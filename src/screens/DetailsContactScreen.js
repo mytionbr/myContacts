@@ -138,11 +138,15 @@ const DetailsContactScreen = (props) => {
             <TextInput 
                 style={styles.input}
                 value={contact.email}
+                placeholder="E-mail"
+                placeholderTextColor="#AAB7B8" 
                 onChangeText={(value)=>handleChangeText('email',value)}
              />
             <TextInput 
                 style={styles.input}
-                value={contact.phone} 
+                value={contact.phone}
+                placeholder="Telefone"
+                placeholderTextColor="#AAB7B8"  
                 onChangeText={(value)=>handleChangeText('phone',value)}
                 />
 
