@@ -27,7 +27,7 @@ const CreateContactScreen = (props) => {
                     email: state.email,
                     phone: state.phone
                 })
-                props.navigation.navigate('Home',{message:'Salvo com sucesso'})
+                props.navigation.navigate('Home')
             } catch (error) {
                 console.log(error)
                 Alert.alert('Ops!! Parece que ocorreu um erro! \n Tente Novamente')
