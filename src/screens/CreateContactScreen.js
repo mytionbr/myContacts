@@ -28,7 +28,8 @@ const CreateContactScreen = (props) => {
                 await firebase.db.collection('contacts').add({
                     name: state.name,
                     email: state.email,
-                    phone: state.phone
+                    phone: state.phone,
+                    photo:state.photo
                 })
                 props.navigation.navigate('Home')
             } catch (error) {

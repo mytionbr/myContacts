@@ -1,6 +1,8 @@
 import React,{useState,useEffect} from 'react'
-import { ScrollView, View, StyleSheet, TextInput,ActivityIndicator,Button,Alert} from 'react-native'
+import { ScrollView, View, StyleSheet, TextInput,ActivityIndicator,Button,Alert,TouchableOpacity} from 'react-native'
 import firebase from '../../database/firebase'
+import { Avatar } from 'react-native-elements/dist/avatar/Avatar'
+import * as ImagePicker from 'expo-image-picker';
 
 const DetailsContactScreen = (props) => {
     
@@ -8,7 +10,8 @@ const DetailsContactScreen = (props) => {
         id: '',
         name: '',
         email:'',
-        phone: ''
+        phone: '',
+        photo:''
     }
 
     const [loading,setLoading] = useState(true)
@@ -19,6 +22,7 @@ const DetailsContactScreen = (props) => {
         const dbRef = firebase.db.collection('contacts').doc(id)
         const doc = await dbRef.get()
         const constact = doc.data()
+        console.log(constact)
         setContact({
             ...constact,
             id: doc.id
@@ -50,7 +54,8 @@ const DetailsContactScreen = (props) => {
             await dbRef.set({
                 name:contact.name,
                 email:contact.email,
-                phone:contact.phone
+                phone:contact.phone,
+                photo:contact.photo
             })
             setContact(initialState)
             props.navigation.navigate('Home')
@@ -74,8 +79,57 @@ const DetailsContactScreen = (props) => {
         ])
     }
 
+    const renderPhote = ()=>{
+        if(contact.photo !== ''){
+          console.log(contact.photo)
+            return(
+                  <Avatar 
+              style={styles.photo} 
+              source={{
+                  uri: contact.photo,
+                }}
+              rounded></Avatar>
+            )
+            
+        }
+        else{
+            return (
+                <Avatar 
+                style={styles.photo} 
+                title={'Foto'}
+                rounded></Avatar>
+         )   
+        }
+    }
+
+    const handlePhoto = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+        });
+    
+       
+    
+        if (!result.cancelled) {
+          setContact({
+            ...contact,['photo']:result.uri
+          });
+        }
+      };
+
+
     return (
         <ScrollView style={styles.container}>
+
+        <TouchableOpacity style={styles.avatar}
+                onPress={()=>handlePhoto()}
+            >
+                {renderPhote()}
+                
+           </TouchableOpacity>
+
             <TextInput 
                 style={styles.input}
                 value={contact.name}
@@ -146,6 +200,25 @@ const styles = StyleSheet.create({
     },
     btnUpdate:{
         color:'#1ABC9C'
+    },
+    avatar:{
+        marginBottom:10,
+        marginTop:10,
+        justifyContent: "center",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        padding: 10,
+        
+    },
+    photo: {
+        color: "#fff",
+        backgroundColor: "#051121",
+        fontWeight: "600",
+        padding: 0,
+        fontSize: 15,
+        width: 120,
+        height:120,
+        borderRadius:20
     }
 })
 
