@@ -8,7 +8,7 @@ const Stack = createStackNavigator()
 
 import HomeScreen from './src/screens/HomeScreen'
 import CreateContactScreen from './src/screens/CreateContactScreen'
-
+import DetailsContactScreen from './src/screens/DetailsContactScreen';
 
 
 function MyContacts(){
@@ -41,6 +41,20 @@ function MyContacts(){
                   },
                 }}
               component={CreateContactScreen} 
+            />
+            <Stack.Screen 
+              name="DetailsContactScreen" 
+              options={
+                {
+                  title:'Detalhes do Contato',
+                  headerStyle:{backgroundColor:'#01060D'},
+                  headerTintColor:'#f9f9f9',
+                  headerTitleStyle: {
+                    fontWeight: 'bold',
+                   
+                  },
+                }}
+              component={DetailsContactScreen} 
             />
 
         

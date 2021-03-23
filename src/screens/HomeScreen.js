@@ -41,11 +41,13 @@ const HomeScreen = (props) => {
                 <ListItem
                         key={contact.id}
                         bottomDivider
-                        onPress={()=>Alert.alert(`Você clicou em ${contact.name}`)}
+                        onPress={()=>props.navigation.navigate('DetailsContactScreen',{
+                            contactId: contact.id
+                        })}
                          >
                    
                     <Avatar
-                       title={`${(contact.name[0]+contact.name[1]).toUpperCase()}`}
+                       title={`${(contact.name[0]).toUpperCase()}`}
                        titleStyle={styles.avatar}
                        rounded                        
                     />
@@ -74,8 +76,10 @@ const styles = StyleSheet.create({
         color:'#fff',
         backgroundColor:"#051121",
         fontWeight:'600',
-        padding:10,
-        fontSize:20
+        padding:15,
+        fontSize:15,
+        width:100,
+        
     },
     title:{
         fontSize:20,
